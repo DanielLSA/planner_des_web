@@ -49,3 +49,5 @@ Dados adicionais do assistente são temporários, processados somente no disposi
 Salvar compromissos preserva a semana/mês em tela e o dia de referência do próximo cadastro. Quando a data salva estiver fora da visualização, oferecer Ver compromisso sem navegar automaticamente. Ao definir dias de repetição de um compromisso sem série original, se a data não foi alterada manualmente, sugerir o primeiro dia marcado dentro da semana em planejamento. Datas preenchidas manualmente prevalecem.
 
 Filtro de categorias permite múltiplas seleções com estado pressionado visível; clicar de novo remove uma seleção. Todas as categorias limpa a restrição. Nenhuma seleção específica significa todas. Semana, mês, listas e exportação mostram a união das categorias escolhidas. O cálculo do assistente continua considerando a agenda inteira.
+
+Impressão semanal: somente blocos em grupos sobrepostos dividem a largura; horários isolados usam a coluna inteira. Títulos aproveitam largura/altura com alinhamento central e fonte adaptativa limitada. Blocos curtos devem manter ao menos uma linha quando houver espaço legível; excesso continua sinalizado na prévia.

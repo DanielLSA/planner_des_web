@@ -1,3 +1,4 @@
+import { printLanes, fitPrintText } from './print-layout';
 import { add, date, week, minutes, occurs, type State, type Event } from './domain';
 
 export type PrintExtras = { checkboxes?: boolean; demands?: boolean; goals?: boolean; notes?: boolean };
@@ -23,7 +24,13 @@ export function makeSheet(state:State,o:Options):{svg:string;warnings:number}{
   body+=rect(M,y0,timeW,head,'#eaf1e8')+text(M+9,y0+21,'HORÁRIOS',10*o.scale,'#3d5b46',700);
   days.forEach((s,i)=>{const x=M+timeW+i*cw;body+=rect(x,y0,cw,head,'#eaf1e8')+text(x+7,y0+20,`${weekdays[i]} ${date(s).getDate()}`,Math.min(11*o.scale,cw/12),'#3d5b46',700);});
   for(let r=0;r<boundaries.length-1;r++){const y=y0+head+r*rowH;body+=rect(M,y,timeW,rowH,r%2?'#f8faf6':'#fff')+text(M+6,y+Math.min(rowH-3,16),`${boundaries[r]}–${boundaries[r+1]}`,Math.min(10*o.scale,rowH*.6),'#61715f');for(let col=0;col<7;col++)body+=rect(M+timeW+col*cw,y,cw,rowH,r%2?'#fbfcf9':'#fff');}
-  days.forEach((s,col)=>{const entries=items(s);const laneEnds:number[]=[];const lanes=new Map<string,number>();for(const e of entries){let lane=laneEnds.findIndex(end=>end<=minutes(e.start));if(lane<0)lane=laneEnds.length;laneEnds[lane]=minutes(e.end);lanes.set(e.id,lane);}const laneCount=Math.max(1,laneEnds.length);entries.forEach(e=>{const c=state.categories.find(c=>c.id===e.categoryId)!;const first=boundaries.indexOf(e.start),last=boundaries.indexOf(e.end),x=M+timeW+col*cw+(lanes.get(e.id)??0)*cw/laneCount+3,y=y0+head+first*rowH+2,w=cw/laneCount-6,h=(last-first)*rowH-4;const check=extras.checkboxes?font+5:0;body+=rect(x,y,w,h,c.color+'22',c.color);if(check){if(h<font+7||w<check+15)warnings++;else body+=`<rect data-print-checkbox="true" x="${x+5}" y="${y+5}" width="${font*.75}" height="${font*.75}" fill="white" stroke="#697c70"/>`;}body+=wrapped(e.title,x+5+check,y+font+4,w-10-check,h-7,font);});});
+  days.forEach((s,col)=>{const entries=items(s),layout=printLanes(entries);entries.forEach(e=>{const c=state.categories.find(c=>c.id===e.categoryId)!;const {lane,count,span}=layout.get(e.id)!;const first=boundaries.indexOf(e.start),last=boundaries.indexOf(e.end),x=M+timeW+col*cw+lane*cw/count+2,y=y0+head+first*rowH+1,w=cw/count*span-4,h=(last-first)*rowH-2;
+   body+=rect(x,y,w,h,c.color+'22',c.color);const padding=Math.min(3,Math.max(.5,h*.1)),boxSize=extras.checkboxes?Math.min(9,font*.75):0,check=boxSize?boxSize+4:0;
+   if(boxSize){if(h<boxSize+4||w<check+12)warnings++;else body+=`<rect data-print-checkbox="true" x="${x+padding}" y="${y+(h-boxSize)/2}" width="${boxSize}" height="${boxSize}" fill="white" stroke="#697c70"/>`;}
+   const fit=fitPrintText(e.title,w-padding*2-check,h-padding*2,font);if(fit.truncated)warnings++;
+   const center=x+check+w/2-check/2,baseline=y+(h-fit.lines.length*fit.lineHeight)/2+fit.size*.85;
+   body+=`<g data-print-event="${xml(e.id)}" data-lanes="${count}" data-span="${span}">${fit.lines.map((line,i)=>`<text x="${center}" y="${baseline+i*fit.lineHeight}" text-anchor="middle" font-size="${fit.size}" fill="#243c37">${xml(line)}</text>`).join('')}</g>`;
+  });});
  }else{
   const first=o.anchor.slice(0,7)+'-01',last=new Date(date(first).getFullYear(),date(first).getMonth()+1,0).getDate(),start=week(first)[0],rows=Math.ceil((date(first).getDay()+last)/7),cw=(W-2*M)/7,head=26,ch=(gridH-head)/rows;
   weekdays.forEach((w,i)=>{body+=rect(M+i*cw,y0,cw,head,'#eaf1e8')+text(M+i*cw+7,y0+18,w,Math.min(10*o.scale,cw/11),'#3d5b46',700);});

@@ -57,3 +57,7 @@ Botão Editar explícito na seção Categorias, com edição de nome e cor exist
 Cadastro/edição não navegam mais para a data salva. Compromissos fora do período oferecem Ver compromisso. Data inicial de novas recorrências parte do primeiro dia marcado na semana em tela, somente se o usuário não editou a data. Filtros agora combinam categorias e mantêm a rolagem lateral ao alternar. Exportação semanal/mensal e legenda respeitam a seleção combinada.
 
 26 testes passaram e build concluído. No navegador, validado salvar em novembro mantendo a semana de outubro, abrir novo formulário na mesma semana, sugestão de segunda-feira dessa semana e preservação de data manual. Seleção simultânea Trabalho/Estudos refletida na prévia de exportação.
+
+## Correção — espaço e textos na impressão semanal
+
+Largura dos blocos agora é calculada por grupo de sobreposição, sem estreitar os demais horários do dia. Colunas livres adjacentes são aproveitadas quando possível. Texto semanal centralizado, com quebra de linha, espaçamento adaptativo para blocos curtos e redução limitada de fonte; conteúdo excessivo ainda gera aviso. Verificadas 141 ocorrências fictícias em A4 sem avisos de corte; exemplo visual inspecionado. Acrescentadas quatro regressões de layout. Sem teste em impressora física.

@@ -1,0 +1,10 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {fitPrintText,printLanes} from '../src/print-layout';
+import {initial,type Event} from '../src/domain';
+import {makeSheet} from '../src/export';
+const e=(id:string,start:string,end:string):Event=>({id,title:id,categoryId:'study',date:'2026-10-19',start,end,notes:'',days:[],until:'',exceptions:{}});
+test('sobreposição à tarde não estreita os blocos da manhã ou noite',()=>{const lanes=printLanes([e('morning','07:00','07:30'),e('a','14:00','17:00'),e('b','14:00','18:00'),e('night','23:00','23:30')]);assert.equal(lanes.get('morning')!.count,1);assert.equal(lanes.get('night')!.count,1);assert.equal(lanes.get('a')!.count,2);assert.equal(lanes.get('b')!.count,2);});
+test('blocos adjacentes usam largura inteira e grupo cruzado não sobrepõe colunas',()=>{const lanes=printLanes([e('a','08:00','09:00'),e('b','09:00','10:00')]);assert.ok([...lanes.values()].every(v=>v.count===1));const other=printLanes([e('x','08:00','10:00'),e('y','09:00','11:00'),e('z','10:00','12:00')]);assert.notEqual(other.get('x')!.lane,other.get('y')!.lane);assert.notEqual(other.get('z')!.lane,other.get('y')!.lane);});
+test('bloco baixo mantém uma linha, texto longo adapta e excesso gera aviso',()=>{const short=fitPrintText('DEVOCIONAL',130,17,12);assert.equal(short.lines.join(' '),'DEVOCIONAL');assert.equal(short.truncated,false);const long=fitPrintText('PROGRAMAÇÃO FUNCIONAL',120,34,12);assert.equal(long.truncated,false);assert.ok(long.lines.length>=2);assert.equal(fitPrintText('TEXTO QUE NÃO CABE',8,4,12).truncated,true);});
+test('semana densa mantém textos curtos e não divide todos os blocos',()=>{const s=initial();for(let i=0;i<24;i++)s.events.push(e('item'+i,`${String(i).padStart(2,'0')}:00`,`${String(i).padStart(2,'0')}:30`));s.events[7].title='DEVOCIONAL';s.events.push(e('overlap','14:00','15:00'));const r=makeSheet(s,{period:'week',anchor:'2026-10-19',width:297,height:210,scale:1,title:'Teste',categoryId:[]});assert.match(r.svg,/DEVOCIONAL/);assert.match(r.svg,/data-print-event="item7" data-lanes="1"/);assert.equal((r.svg.match(/data-print-event=/g)||[]).length,25);});
