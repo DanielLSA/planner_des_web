@@ -47,3 +47,7 @@ Barra lateral desktop agora permite rolagem vertical independente e impede compr
 Removida a substituição silenciosa da nova data pelo início anterior da série. Alterações de notas e conversão de compromisso avulso em recorrente preservadas. Edição isolada de uma série desabilita controles de repetição e explica como alterar a série inteira. Ocorrência destacada permite editar sua série original. Após salvar, a agenda navega para a data escolhida e confirma o salvamento.
 
 Verificados no navegador: compromisso único → nova data + série + notas, recarregamento e edição de toda a série com nova data e notas. 25 testes passaram, incluindo quatro regressões novas. Build TypeScript/Vite passou.
+
+## Categorias — acesso e cadastro no compromisso
+
+Botão Editar explícito na seção Categorias, com edição de nome e cor existente. Formulário de compromisso oferece Nova categoria com nome/cor; Usar categoria seleciona o rascunho sem perder os outros campos. Categorias novas são gravadas na mesma operação do compromisso; cancelar o formulário não grava rascunhos. Nomes vazios, novos duplicados e limite de 100 são validados no cadastro inline.
