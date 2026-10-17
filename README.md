@@ -1,5 +1,7 @@
 # Planner
 
+**Experimente online:** https://planner-des-web.vercel.app/
+
 Uma semana com espaço para o que importa. Agenda pessoal open source em português, sem conta e sem API de IA.
 
 ## Executar

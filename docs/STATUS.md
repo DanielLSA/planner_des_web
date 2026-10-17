@@ -33,3 +33,7 @@ Implementado **Extras para o papel**, recolhido e desmarcado por padrão: caixin
 Verificações: 21 testes de domínio/cálculo/exportação passaram, incluindo as 16 combinações de extras em semana/mês, datas, pausas, prioridades, exceções, espaço insuficiente, seleção vazia e revalidação. Build TypeScript/Vite passou. Edge validou cancelamento, reordenação, aprovação parcial, conflito concorrente sem gravação parcial, rollback por erro simulado, ajustes/regeneração com dados atuais e ausência de erros de execução. Fluxos anteriores de agenda/backup e exportação também revalidados. Capturas desktop/celular inspecionadas. Impressora física não testada.
 
 Limites: sugestões são um encaixe determinístico, não uma otimização global garantida; até 20 atividades, um intervalo disponível por dia e até uma sessão da mesma atividade por dia. Sem metas persistentes ou reorganização de blocos existentes. Dados e backup continuam na versão 1.
+
+## Publicação — 17/10/2026
+
+Publicado na Vercel (projeto planner-des-web, equipe Daniel Aires, plano Hobby): https://planner-des-web.vercel.app/ . Repositório conectado à branch main com integração limitada ao DanielLSA/planner_des_web. Deploy inicial do commit 85fcce6 concluído. Verificados carregamento da agenda, disponibilidade do armazenamento local e prévia A4 da exportação no endereço público. Os dados continuam apenas no navegador, sem contas ou sincronização. Dados de localhost podem ser transferidos por exportação/importação de backup.
