@@ -51,3 +51,5 @@ Salvar compromissos preserva a semana/mês em tela e o dia de referência do pr�
 Filtro de categorias permite múltiplas seleções com estado pressionado visível; clicar de novo remove uma seleção. Todas as categorias limpa a restrição. Nenhuma seleção específica significa todas. Semana, mês, listas e exportação mostram a união das categorias escolhidas. O cálculo do assistente continua considerando a agenda inteira.
 
 Impressão semanal: somente blocos em grupos sobrepostos dividem a largura; horários isolados usam a coluna inteira. Títulos aproveitam largura/altura com alinhamento central e fonte adaptativa limitada. Blocos curtos devem manter ao menos uma linha quando houver espaço legível; excesso continua sinalizado na prévia.
+
+PDF direto: Baixar PDF gera a mesma folha vetorial da prévia em uma página com largura/altura físicas iguais às selecionadas, em paisagem/retrato ou tamanho personalizado. Não depende da orientação do diálogo de impressão. Imprimir é ação separada, com @page explícito para A4/A3. Conversão local, sem envio a terceiros.

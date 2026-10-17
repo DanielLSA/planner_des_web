@@ -1,0 +1,1 @@
+export function pdfPageOptions(width:number,height:number){return {orientation:width>height?'landscape' as const:'portrait' as const,unit:'mm' as const,format:[width,height],compress:true,putOnlyUsedFonts:true};}

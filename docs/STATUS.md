@@ -61,3 +61,9 @@ Cadastro/edição não navegam mais para a data salva. Compromissos fora do per�
 ## Correção — espaço e textos na impressão semanal
 
 Largura dos blocos agora é calculada por grupo de sobreposição, sem estreitar os demais horários do dia. Colunas livres adjacentes são aproveitadas quando possível. Texto semanal centralizado, com quebra de linha, espaçamento adaptativo para blocos curtos e redução limitada de fonte; conteúdo excessivo ainda gera aviso. Verificadas 141 ocorrências fictícias em A4 sem avisos de corte; exemplo visual inspecionado. Acrescentadas quatro regressões de layout. Sem teste em impressora física.
+
+## Correção — orientação e tamanho do PDF
+
+Adicionado Baixar PDF direto a partir do SVG da prévia, com jsPDF/svg2pdf.js em carregamento sob demanda. Página recebe dimensões físicas e orientação explícitas. Imprimir separado, com @page A4/A3 paisagem/retrato ou dimensões personalizadas. Cores de fundo suavizadas convertidas em RGB opaco equivalente para preservar fidelidade na conversão.
+
+PDF real baixado no navegador e inspecionado: uma página A4 de 297 × 210 mm. Arquivo renderizado para revisão visual. Testes de construção de PDF verificam A4 paisagem/retrato, A3 e dimensões personalizadas; 31 testes passaram. O ambiente levou tempo excessivo para entregar o evento de download; não há medição de desempenho representativa. Impressora física não testada.

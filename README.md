@@ -65,3 +65,7 @@ Metas, demandas e anotações compartilham os 25% inferiores da área útil quan
 Salvar um compromisso mantém a semana/mês atual. Para um bloco salvo fora do período, use Ver compromisso se desejar navegar. Nos novos blocos recorrentes, o primeiro dia marcado na semana em tela é sugerido como início, salvo quando você informa a data manualmente.
 
 Nas categorias, clique em quantas quiser para combinar os filtros e clique novamente para remover uma. Todas as categorias limpa o filtro. A exportação respeita a combinação.
+
+## PDF conforme a prévia
+
+Use **Baixar PDF** para receber diretamente uma página com a orientação e as dimensões escolhidas na prévia, sem passar pelo diálogo do navegador. O PDF vetorial é gerado localmente e as bibliotecas são carregadas apenas ao solicitar o arquivo. **Imprimir** continua disponível separadamente; configurações manuais da impressora podem prevalecer nesse diálogo.
