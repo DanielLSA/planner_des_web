@@ -11,6 +11,8 @@
 
 ## Correções recentes
 
+- Caixinhas vetoriais e quebra de linha sem cortes indevidos nas demandas exportadas.
+
 - Semana em planejamento preservada ao salvar novos blocos.
 - Alterações de data e notas respeitadas na edição de séries.
 - Menu lateral rolável em telas baixas.
