@@ -1,71 +1,81 @@
 # Planner
 
-**Experimente online:** https://planner-des-web.vercel.app/
+Organize sua rotina no navegador e leve o cronograma para o papel.
 
-Uma semana com espaço para o que importa. Agenda pessoal open source em português, sem conta e sem API de IA.
+**[Experimente online](https://planner-des-web.vercel.app/)** · [Como contribuir](CONTRIBUTING.md) · [Licença MIT](LICENSE)
 
-## Executar
+O Planner é uma aplicação open source em português para planejar estudos, trabalho e atividades pessoais. Funciona sem cadastro: seus dados ficam no navegador.
 
-Requer Node.js 22.12+ e npm.
+## O que você pode fazer
+
+- Organizar compromissos nas visões semanal, mensal e diária no celular.
+- Criar recorrências semanais e editar uma ocorrência ou a série inteira.
+- Personalizar categorias, criar novas durante o cadastro e combinar filtros.
+- Guardar demandas sem horário e agendá-las depois.
+- Planejar a rotina: informar atividades, prioridades e disponibilidade, revisar os encaixes sugeridos e aprovar apenas o que quiser.
+- Exportar PDF e SVG com prévia, A4/A3, orientação e dimensões personalizadas.
+- Incluir na impressão caixinhas, demandas e espaço para metas ou anotações, opcionalmente.
+- Exportar e restaurar backups JSON.
+
+O assistente de rotina usa regras locais; não envia sua agenda a serviços de IA.
+
+## Executar localmente
+
+Requisitos: Node.js 22.12 ou superior e npm.
 
 ```sh
+git clone https://github.com/DanielLSA/planner_des_web.git
+cd planner_des_web
 npm ci
 npm run dev
 ```
 
-Abra o endereço informado pelo Vite. Para verificar: `npm test` e `npm run build`. Para revisar a distribuição: `npm run preview`.
+Abra o endereço informado no terminal.
 
-## Funcionalidades
+```sh
+npm test            # testes automatizados
+npm run build      # verificação TypeScript e build de produção
+npm run preview    # prévia do build
+```
 
-Agenda semanal e mensal, lista diária em telas pequenas, categorias editáveis, compromissos recorrentes, exceções por ocorrência, duplicação, demandas, movimentação de blocos entre dias, impressão e backup JSON validado.
+## Uso rápido
 
-Clique num horário vazio para criar um bloco. Clique num bloco para editar. Em séries, selecione se a edição vale para uma ocorrência ou toda a série. Ao editar toda a série, a data inicial, os dias de repetição e os demais campos podem mudar. Para editar repetição, selecione Toda a série; uma ocorrência isolada permite mudar sua data e notas. A movimentação por arrastar troca o dia da ocorrência e preserva o horário; o formulário permite mudar ambos. Sobreposições são permitidas após aviso, com busca de conflitos até um ano à frente.
+Crie um compromisso pelo botão **Novo compromisso** ou clicando em um horário. Para repetir, marque os dias da semana. Na edição de uma recorrência, escolha **Somente esta ocorrência** ou **Toda a série**. Salvar mantém o período que você está planejando; **Ver compromisso** permite navegar quando a data salva estiver fora dele.
 
-## Seus dados
+Em **Categorias → Editar**, ajuste nomes e cores. **Nova categoria**, no formulário de compromisso, mantém os outros campos preenchidos e salva a categoria junto com o bloco. Clique em várias categorias para combinar filtros; **Todas as categorias** remove a restrição.
 
-Dados ficam em IndexedDB neste navegador, perfil e endereço do site. Mudar de domínio ou porta abre outro armazenamento. Não há sincronização, analytics ou envio de agenda a terceiros. O navegador pode remover dados, e modo privado não é adequado para guardar sua rotina. Exporte backups regularmente em **Dados e backup**. Arquivos têm limite de 5 MB; a restauração substitui o estado atual, após confirmação e oferta de backup. Não importe arquivos de origem desconhecida.
+Em **Planejar rotina**, informe atividades por prioridade, duração, sessões e dias disponíveis. Revise antes de salvar. A proposta não move compromissos existentes nem usa horários passados. Cancelar não altera sua agenda.
 
-## Publicar
+## Imprimir e exportar
 
-`npm run build` gera `dist/`, que pode ser hospedada em qualquer serviço de arquivos estáticos via HTTPS. Para subdiretórios, use `npm run build -- --base=/nome-do-repositorio/`. A hospedagem vê metadados normais de acesso, mas a agenda permanece local. O código não usa fontes nem scripts remotos em execução.
+Em **Exportar**, escolha semana ou mês e confira a prévia. **Baixar PDF** gera uma página com as dimensões e orientação escolhidas. **Imprimir** abre o diálogo do navegador; configurações da impressora podem prevalecer. SVG também está disponível.
 
-Antes de abrir o repositório original, revogue a chave do antigo servidor no provedor e examine o histórico Git: excluir o arquivo atual não remove segredos de commits anteriores. Não publique o cronograma pessoal nem backups reais. Esta entrega não publica automaticamente um repositório ou site.
+Os **Extras para o papel** começam desmarcados e só aparecem na exportação. Notas dos compromissos não são incluídas. Se algum texto não couber, a prévia mostra um aviso; ajuste papel ou tamanho do texto.
 
-## Documentação
+## Dados e privacidade
 
-- [Produto e requisitos](docs/PRODUCT.md)
-- [Arquitetura e decisões](docs/ARCHITECTURE.md)
-- [Estado e validação](docs/STATUS.md)
-- [Contribuição](CONTRIBUTING.md) · [Segurança](SECURITY.md)
+A agenda é armazenada em IndexedDB, por navegador, perfil e endereço do site. Não há contas, banco de agendas em nuvem ou sincronização entre dispositivos. Duas pessoas usando o mesmo perfil do navegador compartilham os dados locais desse site.
 
-Licença MIT. A distribuição inclui apenas exemplos genéricos; o PDF de referência pessoal não faz parte do projeto.
+Faça backups em **Dados e backup**. Limpar os dados do site ou usar navegação privada pode apagar a agenda. O armazenamento persistente pode reduzir a limpeza automática pelo navegador, mas não substitui backup. Para migrar do localhost para o site, ou entre dispositivos, exporte e importe o JSON. A restauração substitui a agenda atual após confirmação; limite de 5 MB por arquivo.
 
-## Cronograma para a parede
+Não há analytics na aplicação. A hospedagem pode processar metadados normais das requisições. Saiba mais em [Segurança](SECURITY.md).
 
-Clique em **Exportar ↗** na agenda. Escolha semana (grade de horários) ou mês (calendário), título, A4/A3 e orientação. Para tamanhos específicos, escolha **Personalizado** e informe largura/altura em milímetros (100–1000 mm). A medida personalizada prevalece sobre orientação. A prévia permite conferir antes de imprimir; há ajuste de texto e aviso para conteúdo que não caiba.
+## Contribua
 
-Use **Imprimir / salvar PDF** e selecione a impressora ou **Salvar como PDF** no navegador. Configure o mesmo papel, escala 100%, margens nenhuma e cabeçalhos/rodapés desativados; a folha já tem margem interna de 8 mm. A impressão física depende das configurações e área imprimível da impressora. **Baixar SVG vetorial** exporta um arquivo com dimensões físicas explícitas. Notas privadas não aparecem; o filtro de categorias é respeitado.
+Encontrou um problema ou tem uma ideia? [Abra uma issue](https://github.com/DanielLSA/planner_des_web/issues) com o comportamento esperado e passos para reproduzir. Contribuições de código, design, acessibilidade, documentação e testes são bem-vindas. Consulte o [guia de contribuição](CONTRIBUTING.md) antes de mudanças maiores.
 
-## Planejar rotina sem carregar a agenda
+Possíveis evoluções incluem contas e sincronização opcionais. Essas funcionalidades ainda não estão disponíveis; propostas podem ser discutidas em issues.
 
-Abra **Planejar rotina**. Informe atividades, categoria, duração (30 min por padrão) e sessões (1–7). Reordene as atividades para definir prioridade. Marque explicitamente os dias disponíveis e revise seus horários; nenhum dia vem selecionado. A pausa inicial é de 15 min e pode ser ajustada entre 0 e 120 min.
+## Documentação técnica
 
-O cálculo usa regras locais: preserva compromissos de todas as categorias, recorrências e exceções; considera primeiro dias menos ocupados, depois horários mais cedo. Cada atividade recebe no máximo uma sessão por dia. Não usa horários passados nem divide sessões. O que não couber aparece com motivo, sem mudar sua agenda.
+- [Produto e comportamentos esperados](docs/PRODUCT.md)
+- [Arquitetura e persistência](docs/ARCHITECTURE.md)
+- [Histórico de mudanças](CHANGELOG.md)
 
-Na revisão, desmarque sugestões indesejadas. **Salvar selecionados** revalida a agenda atual e grava o lote inteiro em uma transação. Se os horários deixarem de estar livres ou ocorrer falha de gravação, nenhum bloco do lote é salvo. Volte em **Ajustar** e gere nova proposta. Cancelar descarta o formulário e a proposta. Somente os blocos aprovados permanecem, como compromissos avulsos; o assistente não configura uma meta recorrente.
+## Hospedagem própria
 
-## Extras opcionais na impressão
+O build gera `dist/`, publicável como arquivos estáticos via HTTPS. Na Vercel: preset **Vite**, comando `npm run build` e saída `dist`. Não são necessárias chaves de API nem variáveis de ambiente. Para hospedar em subdiretório: `npm run build -- --base=/nome-do-repositorio/`.
 
-Em **Exportar ↗ → Extras para o papel**, marque caixinhas de realizado, demandas pendentes, espaço para metas à mão ou anotações. A seção começa recolhida e todas as opções desmarcadas; essas escolhas não aparecem na agenda digital e reiniciam ao fechar a exportação.
+## Licença
 
-Metas, demandas e anotações compartilham os 25% inferiores da área útil quando selecionados. Caixinhas isoladas não reduzem a área da grade. Prévia, dimensões e alertas de conteúdo excedente continuam funcionando em semana/mês, PDF via impressão e SVG. Metas e anotações são áreas em branco; notas privadas dos compromissos continuam fora da folha.
-
-## Planejar sem mudar de semana
-
-Salvar um compromisso mantém a semana/mês atual. Para um bloco salvo fora do período, use Ver compromisso se desejar navegar. Nos novos blocos recorrentes, o primeiro dia marcado na semana em tela é sugerido como início, salvo quando você informa a data manualmente.
-
-Nas categorias, clique em quantas quiser para combinar os filtros e clique novamente para remover uma. Todas as categorias limpa o filtro. A exportação respeita a combinação.
-
-## PDF conforme a prévia
-
-Use **Baixar PDF** para receber diretamente uma página com a orientação e as dimensões escolhidas na prévia, sem passar pelo diálogo do navegador. O PDF vetorial é gerado localmente e as bibliotecas são carregadas apenas ao solicitar o arquivo. **Imprimir** continua disponível separadamente; configurações manuais da impressora podem prevalecer nesse diálogo.
+[MIT](LICENSE). Você pode usar, estudar, modificar e distribuir o projeto conforme os termos da licença.
