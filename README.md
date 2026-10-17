@@ -19,7 +19,7 @@ Abra o endereço informado pelo Vite. Para verificar: `npm test` e `npm run buil
 
 Agenda semanal e mensal, lista diária em telas pequenas, categorias editáveis, compromissos recorrentes, exceções por ocorrência, duplicação, demandas, movimentação de blocos entre dias, impressão e backup JSON validado.
 
-Clique num horário vazio para criar um bloco. Clique num bloco para editar. Em séries, selecione se a edição vale para uma ocorrência ou toda a série. Ao editar toda a série, a data inicial é preservada; os dias de repetição e demais campos podem mudar. A movimentação por arrastar troca o dia da ocorrência e preserva o horário; o formulário permite mudar ambos. Sobreposições são permitidas após aviso, com busca de conflitos até um ano à frente.
+Clique num horário vazio para criar um bloco. Clique num bloco para editar. Em séries, selecione se a edição vale para uma ocorrência ou toda a série. Ao editar toda a série, a data inicial, os dias de repetição e os demais campos podem mudar. Para editar repetição, selecione Toda a série; uma ocorrência isolada permite mudar sua data e notas. A movimentação por arrastar troca o dia da ocorrência e preserva o horário; o formulário permite mudar ambos. Sobreposições são permitidas após aviso, com busca de conflitos até um ano à frente.
 
 ## Seus dados
 

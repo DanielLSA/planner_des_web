@@ -20,7 +20,7 @@ Escopo: agenda, recorrências semanais, exceções, categorias, demandas, impres
 | RF08 | Exportar semana em grade de horários ou mês em calendário, respeitando recorrências, exceções e filtro. Prévia em A4/A3, retrato/paisagem ou medidas de 100 a 1000 mm; escala de texto 80/100/120%; imprimir/salvar PDF pelo navegador e baixar SVG. Margens internas de 8 mm. Avisar quando textos não couberem; não exportar notas. |
 | RN01 | Compromissos começam e terminam no mesmo dia; datas e horários são locais de calendário. |
 | RN02 | Arrastar move somente a ocorrência e preserva horário; formulário e teclado oferecem alternativa. |
-| RN03 | Edição de série inteira preserva a data inicial e as exceções existentes. |
+| RN03 | Edição de série inteira respeita a data inicial escolhida e preserva as outras exceções; editar a série a partir de uma ocorrência destacada incorpora as alterações à série e remove o destaque antigo. |
 | RNF01 | Sem segredos, rastreadores, IA ou fontes remotas; texto do usuário escapado ao renderizar HTML. |
 | RNF02 | Teclado, foco visível, formulários rotulados, diálogos modais e lista diária no celular. |
 

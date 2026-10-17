@@ -41,3 +41,9 @@ Publicado na Vercel (projeto planner-des-web, equipe Daniel Aires, plano Hobby):
 ## Correção — categorias em telas baixas
 
 Barra lateral desktop agora permite rolagem vertical independente e impede compressão dos itens. Categorias com nomes longos quebram linha. Layout mobile preservado.
+
+## Correção — edição de data, notas e série
+
+Removida a substituição silenciosa da nova data pelo início anterior da série. Alterações de notas e conversão de compromisso avulso em recorrente preservadas. Edição isolada de uma série desabilita controles de repetição e explica como alterar a série inteira. Ocorrência destacada permite editar sua série original. Após salvar, a agenda navega para a data escolhida e confirma o salvamento.
+
+Verificados no navegador: compromisso único → nova data + série + notas, recarregamento e edição de toda a série com nova data e notas. 25 testes passaram, incluindo quatro regressões novas. Build TypeScript/Vite passou.
