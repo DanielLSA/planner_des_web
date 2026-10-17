@@ -13,3 +13,5 @@
 @media screen and (min-width:901px){.sidebar{overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scrollbar-width:thin;scrollbar-color:#b7c7bc transparent}.sidebar>*{flex-shrink:0}.sidebar .filter{white-space:normal;overflow-wrap:anywhere;min-width:0}.sidebar .filter i{flex-shrink:0}}
 
 .category-heading #manage{font-size:11px;padding:5px 7px;border:1px solid #dfe5df;border-radius:5px}.inline-category-button{font-size:11px;margin:-5px 0 12px;background:transparent;color:#245b4d}#inline-category-fields{margin:0 0 15px}#inline-category-fields input[type=color]{width:54px;height:38px;padding:3px}#inline-category-fields>button{font-size:11px;margin-right:6px}#inline-category-fields>small{display:block;margin-top:10px;color:#7c8c75}
+
+.filter[aria-pressed="true"]::after{content:"✓";margin-left:auto;color:#245b4d;font-size:11px}.notice button{font-size:11px;margin-left:6px}

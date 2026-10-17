@@ -59,3 +59,9 @@ Na revisão, desmarque sugestões indesejadas. **Salvar selecionados** revalida 
 Em **Exportar ↗ → Extras para o papel**, marque caixinhas de realizado, demandas pendentes, espaço para metas à mão ou anotações. A seção começa recolhida e todas as opções desmarcadas; essas escolhas não aparecem na agenda digital e reiniciam ao fechar a exportação.
 
 Metas, demandas e anotações compartilham os 25% inferiores da área útil quando selecionados. Caixinhas isoladas não reduzem a área da grade. Prévia, dimensões e alertas de conteúdo excedente continuam funcionando em semana/mês, PDF via impressão e SVG. Metas e anotações são áreas em branco; notas privadas dos compromissos continuam fora da folha.
+
+## Planejar sem mudar de semana
+
+Salvar um compromisso mantém a semana/mês atual. Para um bloco salvo fora do período, use Ver compromisso se desejar navegar. Nos novos blocos recorrentes, o primeiro dia marcado na semana em tela é sugerido como início, salvo quando você informa a data manualmente.
+
+Nas categorias, clique em quantas quiser para combinar os filtros e clique novamente para remover uma. Todas as categorias limpa o filtro. A exportação respeita a combinação.

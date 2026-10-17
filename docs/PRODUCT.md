@@ -43,3 +43,9 @@ Objetivo: ajudar a construir uma semana possível com fluxo sob demanda, preserv
 | RF15 | Seções inferiores selecionadas compartilham igualmente 25% da área útil. Caixinhas sozinhas não reduzem a grade. Prévia e exportação acompanham as escolhas, com aviso para conteúdo que não caiba. |
 
 Dados adicionais do assistente são temporários, processados somente no dispositivo e descartados ao fechar. Metas no papel são campos para preenchimento manual. Sem acompanhamento digital de execução ou novos fornecedores. Verificação: testes puros do cálculo e exportador, e testes de navegador para cancelamento, reordenação, aprovação parcial, concorrência, rollback e desktop/celular.
+
+## Contexto de planejamento e filtro combinado
+
+Salvar compromissos preserva a semana/mês em tela e o dia de referência do próximo cadastro. Quando a data salva estiver fora da visualização, oferecer Ver compromisso sem navegar automaticamente. Ao definir dias de repetição de um compromisso sem série original, se a data não foi alterada manualmente, sugerir o primeiro dia marcado dentro da semana em planejamento. Datas preenchidas manualmente prevalecem.
+
+Filtro de categorias permite múltiplas seleções com estado pressionado visível; clicar de novo remove uma seleção. Todas as categorias limpa a restrição. Nenhuma seleção específica significa todas. Semana, mês, listas e exportação mostram a união das categorias escolhidas. O cálculo do assistente continua considerando a agenda inteira.
