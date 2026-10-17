@@ -37,3 +37,7 @@ Limites: sugestões são um encaixe determinístico, não uma otimização globa
 ## Publicação — 17/10/2026
 
 Publicado na Vercel (projeto planner-des-web, equipe Daniel Aires, plano Hobby): https://planner-des-web.vercel.app/ . Repositório conectado à branch main com integração limitada ao DanielLSA/planner_des_web. Deploy inicial do commit 85fcce6 concluído. Verificados carregamento da agenda, disponibilidade do armazenamento local e prévia A4 da exportação no endereço público. Os dados continuam apenas no navegador, sem contas ou sincronização. Dados de localhost podem ser transferidos por exportação/importação de backup.
+
+## Correção — categorias em telas baixas
+
+Barra lateral desktop agora permite rolagem vertical independente e impede compressão dos itens. Categorias com nomes longos quebram linha. Layout mobile preservado.
