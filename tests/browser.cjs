@@ -1,0 +1,26 @@
+const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const assert = require('node:assert/strict');
+(async()=>{
+ const browser=await chromium.launch({headless:true,channel:'msedge'});
+ const page=await browser.newPage({viewport:{width:1440,height:1080}});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('dialog',d=>d.accept());
+ await page.goto('http://127.0.0.1:5173');await page.getByText('Salvo neste navegador',{exact:false}).waitFor();
+ await page.getByRole('button',{name:'Novo compromisso',exact:false}).click();
+ await page.getByLabel('Título',{exact:true}).fill('Leitura de teste');await page.getByLabel('Data',{exact:true}).fill('2026-10-16');await page.locator('input[name=days][value="5"]').check();await page.getByRole('button',{name:'Salvar compromisso'}).click();
+ await page.waitForFunction(()=>!document.querySelector('dialog[open]'));
+ await page.reload();await page.getByText('Salvo neste navegador',{exact:false}).waitFor();
+ await page.locator('[data-event]').first().waitFor();await page.locator('[data-event]').first().click();
+ await page.getByLabel('Título',{exact:true}).fill('Exceção de teste');await page.getByRole('button',{name:'Salvar compromisso'}).click();await page.waitForFunction(()=>!document.querySelector('dialog[open]'));
+ const saved=await page.evaluate(()=>new Promise((resolve,reject)=>{const r=indexedDB.open('planner-local',1);r.onsuccess=()=>{const q=r.result.transaction('state').objectStore('state').get('current');q.onsuccess=()=>resolve(q.result);q.onerror=reject;};}));
+ assert.equal(saved.events.length,2);assert.equal(saved.events[0].exceptions['2026-10-16'],saved.events[1].id);
+ await page.locator('input[name=title]').fill('Ideia de teste');await page.getByRole('button',{name:'Adicionar',exact:false}).last().click();await page.getByText('Ideia de teste',{exact:true}).waitFor();
+ await page.getByRole('button',{name:'Dados e backup',exact:false}).click();const downloadEvent=page.waitForEvent('download');await page.getByRole('button',{name:'Exportar backup JSON',exact:false}).click();const download=await downloadEvent;assert.match(download.suggestedFilename(),/^planner-backup/);await page.getByRole('button',{name:'Fechar',exact:true}).click();
+ await page.getByRole('button',{name:'Visão mensal',exact:false}).click();assert.equal(await page.locator('.month-day').count(),42);await page.getByRole('button',{name:'Minha semana',exact:false}).click();
+ await page.evaluate(()=>window.dispatchEvent(new Event('beforeprint')));assert.equal(await page.locator('.print-day').count(),7);await page.evaluate(()=>window.dispatchEvent(new Event('afterprint')));
+ assert.equal(await page.locator('#import-file').isVisible(),false);await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:'../planner-desktop.png',fullPage:true});
+ await page.getByRole('button',{name:'Dados e backup',exact:false}).click();await page.locator('#import-file').setInputFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from('{"version":99}')});await page.getByText('Backup não importado:',{exact:false}).waitFor();
+ await page.getByRole('button',{name:'Dados e backup',exact:false}).click();await page.locator('#import-file').setInputFiles({name:'valid.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(saved))});await page.waitForFunction(()=>!document.querySelector('dialog[open]'));assert.equal(await page.getByText('Ideia de teste',{exact:true}).count(),0);
+ await page.evaluate(()=>{window.__originalTransaction=IDBDatabase.prototype.transaction;IDBDatabase.prototype.transaction=function(){throw Error('simulated storage failure');};});await page.getByRole('button',{name:'Novo compromisso',exact:false}).click();await page.getByLabel('Título',{exact:true}).fill('Não deve salvar');await page.getByRole('button',{name:'Salvar compromisso'}).click();await page.getByRole('button',{name:'Fechar',exact:true}).click();await page.getByText('Não foi possível salvar.',{exact:false}).waitFor();await page.evaluate(()=>{IDBDatabase.prototype.transaction=window.__originalTransaction;});
+ await page.setViewportSize({width:390,height:844});assert.equal(await page.locator('.week-mobile').isVisible(),true);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:'../planner-mobile.png',fullPage:true});
+ assert.deepEqual(errors,[]);console.log('Browser PASS: create, persistence, recurring exception, demands, backup download, month, print, mobile and no runtime errors.');await browser.close();
+})().catch(e=>{console.error(e);process.exitCode=1;});

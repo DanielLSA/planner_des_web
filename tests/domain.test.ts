@@ -1,0 +1,10 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { initial, add, week, occurs, overlaps, eventError, parseBackup, type Event } from '../src/domain';
+const event=():Event=>({id:'e1',title:'Leitura',categoryId:'study',date:'2026-10-16',start:'09:00',end:'10:00',notes:'',days:[5],until:'',exceptions:{}});
+test('calendário atravessa meses, anos e ano bissexto',()=>{assert.equal(add('2026-12-31',1),'2027-01-01');assert.equal(add('2028-02-28',1),'2028-02-29');assert.equal(week('2026-10-16')[0],'2026-10-11');});
+test('série respeita início, dias, término e exceções',()=>{const e=event();assert.equal(occurs(e,'2026-10-09'),false);assert.equal(occurs(e,'2026-10-23'),true);assert.equal(occurs(e,'2026-10-24'),false);e.until='2026-10-23';assert.equal(occurs(e,'2026-10-30'),false);e.exceptions['2026-10-23']='deleted';assert.equal(occurs(e,'2026-10-23'),false);});
+test('horários adjacentes não conflitam, interseções conflitam',()=>{const a=event(),b={...event(),start:'10:00',end:'11:00'};assert.equal(overlaps(a,b),false);b.start='09:59';assert.equal(overlaps(a,b),true);});
+test('valida término, data e limite de repetição',()=>{assert.ok(eventError({...event(),end:'08:00'}));assert.ok(eventError({...event(),date:'2026-02-30'}));assert.ok(eventError({...event(),until:'2026-10-01'}));assert.equal(eventError(event()),'');});
+test('backup faz roundtrip e rejeita referências, IDs e versão inválidos',()=>{const s=initial();s.events.push(event());assert.deepEqual(parseBackup(JSON.stringify(s)),s);assert.throws(()=>parseBackup('{"version":9}'));s.events.push(event());assert.throws(()=>parseBackup(JSON.stringify(s)));s.events.pop();s.events[0].categoryId='inexistente';assert.throws(()=>parseBackup(JSON.stringify(s)));});
+test('exceção precisa de destino válido',()=>{const s=initial();s.events.push(event());s.events[0].exceptions['2026-10-23']='ausente';assert.throws(()=>parseBackup(JSON.stringify(s)));s.events[0].exceptions['2026-10-23']='deleted';assert.doesNotThrow(()=>parseBackup(JSON.stringify(s)));});
